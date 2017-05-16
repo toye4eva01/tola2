@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/jquery.mobile.flatui.css" />
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery.mobile-1.4.0-rc.1.js"></script>
+    <style>
+  .cart-item{
+	  max-width:90% !important;
+  }
+  .btn-add2cart, .bidbtn{
+	  background: #2c3e50;
+    border-color: #2c3e50;
+    color: #fff;
+	    -webkit-border-radius: .3125em;
+    border-radius: .3125em;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+	    font-size: 1em;
+    line-height: 1.3;
+    font-family: Lato, sans-serif;
+	font-size: 16px;
+    margin: .5em 0;
+    padding: .7em 1em;
+    display: block;
+    position: relative;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	
+}
+  }
+  </style>
+</head>
+<body>
+  <div data-role="page" id="catalogue">
+
+    <div data-role="panel" id="panel" data-position="left" data-theme="a" data-display="push">
+   <ul class="menu-link"  data-role="listview">
+    <li>Welcome 250343</li>
+    <li><a href="catalogue.html">Catalogue</a></li>
+    <li><a href="transfer.html">Transfer Point</a></li>
+    <li><a href="auction.html">Auction</a></li>
+    <li><a href="survey.html">Survey</a></li>
+    <li><a href="statement.html">Statement</a></li>
+     <li id="notific"><a href="notification.html">Notification</a></li>
+    <hr/>
+    <li><a href="reset-pin.html">Reset Pin</a></li>
+    <li><a href="change-pin.html">Change Pin</a></li>
+    <li><a href="login.html">Log Out</a></li>
+    </ul>
+    </div>
+
+    <div data-role="header" data-position="fixed">
+     <a data-iconpos="notext" href="#panel" data-role="button" data-icon="flat-menu"></a>
+     
+      <h1>Catalogue</h1>
+       <a data-iconpos="notext" href="shopping-cart.html" data-role="button"><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDE5LjI1IDE5LjI1IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOS4yNSAxOS4yNTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxNnB4IiBoZWlnaHQ9IjE2cHgiPgo8Zz4KCTxnIGlkPSJMYXllcl8xXzEwN18iPgoJCTxnPgoJCQk8cGF0aCBkPSJNMTkuMDA2LDIuOTdjLTAuMTkxLTAuMjE5LTAuNDY2LTAuMzQ1LTAuNzU2LTAuMzQ1SDQuNDMxTDQuMjM2LDEuNDYxICAgICBDNC4xNTYsMC45NzksMy43MzksMC42MjUsMy4yNSwwLjYyNUgxYy0wLjU1MywwLTEsMC40NDctMSwxczAuNDQ3LDEsMSwxaDEuNDAzbDEuODYsMTEuMTY0YzAuMDA4LDAuMDQ1LDAuMDMxLDAuMDgyLDAuMDQ1LDAuMTI0ICAgICBjMC4wMTYsMC4wNTMsMC4wMjksMC4xMDMsMC4wNTQsMC4xNTFjMC4wMzIsMC4wNjYsMC4wNzUsMC4xMjIsMC4xMiwwLjE3OWMwLjAzMSwwLjAzOSwwLjA1OSwwLjA3OCwwLjA5NSwwLjExMiAgICAgYzAuMDU4LDAuMDU0LDAuMTI1LDAuMDkyLDAuMTkzLDAuMTNjMC4wMzgsMC4wMjEsMC4wNzEsMC4wNDksMC4xMTIsMC4wNjVjMC4xMTYsMC4wNDcsMC4yMzgsMC4wNzUsMC4zNjcsMC4wNzUgICAgIGMwLjAwMSwwLDExLjAwMSwwLDExLjAwMSwwYzAuNTUzLDAsMS0wLjQ0NywxLTFzLTAuNDQ3LTEtMS0xSDYuMDk3bC0wLjE2Ni0xSDE3LjI1YzAuNDk4LDAsMC45Mi0wLjM2NiwwLjk5LTAuODU4bDEtNyAgICAgQzE5LjI4MSwzLjQ3OSwxOS4xOTUsMy4xODgsMTkuMDA2LDIuOTd6IE0xNy4wOTcsNC42MjVsLTAuMjg1LDJIMTMuMjV2LTJIMTcuMDk3eiBNMTIuMjUsNC42MjV2MmgtM3YtMkgxMi4yNXogTTEyLjI1LDcuNjI1djIgICAgIGgtM3YtMkgxMi4yNXogTTguMjUsNC42MjV2MmgtM2MtMC4wNTMsMC0wLjEwMSwwLjAxNS0wLjE0OCwwLjAzbC0wLjMzOC0yLjAzSDguMjV6IE01LjI2NCw3LjYyNUg4LjI1djJINS41OTdMNS4yNjQsNy42MjV6ICAgICAgTTEzLjI1LDkuNjI1di0yaDMuNDE4bC0wLjI4NSwySDEzLjI1eiIgZmlsbD0iI0ZGRkZGRiIvPgoJCQk8Y2lyY2xlIGN4PSI2Ljc1IiBjeT0iMTcuMTI1IiByPSIxLjUiIGZpbGw9IiNGRkZGRkYiLz4KCQkJPGNpcmNsZSBjeD0iMTUuNzUiIGN5PSIxNy4xMjUiIHI9IjEuNSIgZmlsbD0iI0ZGRkZGRiIvPgoJCTwvZz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /><b class="cart-no" id="mycartcount">1</b></a>
+      
+    </div>
+
+    <div data-role="content" role="main" >
+
+
+ <select name="" id="catalogueoption"  data-theme="a">
+          <option value="standard">Category</option>
+          <option value="rush">Option 2</option>
+          <option value="express">Option 3</option>
+          <option value="overnight">Option 4</option>
+        </select>
+      <!--  <div class="ui-grid-a">
+    <div class="ui-block-a"><div class="ui-bar ui-bar-a" style="height:60px">  <select name="select-choice" id="select-choice-a" data-native-menu="false" data-theme="a">
+          <option value="standard">Delivery Method</option>
+          <option value="rush">Option 2</option>
+          <option value="express">Option 3</option>
+          <option value="overnight">Option 4</option>
+        </select></div></div>
+    <div class="ui-block-b"><div class="ui-bar ui-bar-a" style="height:60px">  <select name="select-choice" id="select-choice-a" data-native-menu="false" data-theme="a">
+          <option value="standard">Sort By</option>
+          <option value="rush">Option 2</option>
+          <option value="express">Option 3</option>
+          <option value="overnight">Option 4</option>
+        </select></div></div></div>-->
+   <div style="height:60px"><input id="the-search-input" type="text" data-type="search" placeholder="Search Item..." data-iconpos="right"/></div>
+    <div class="catalogue-item" id="showcatalogue">
+    <!--<div class="div-auction-img">
+    <img src="img/ps4.jpg" class="img-auction"/>
+    </div><br/><br/>
+    <h3>Catalogue Item</h3>
+    <h4 class="auction-price">210</h4>
+    <p>
+    However, because you can’t be sure of the structure or values of JSON your app receives, it can be challenging to deserialize model objects correctly. This post describes a few approaches you can take when working with JSON in your apps.
+    </p>
+    <fieldset data-role="controlgroup">
+          <input type="radio" name="radio-choice-a" data-theme="c" id="radio-choice-1-a" value="choice-1" checked="checked" />
+          <label for="radio-choice-1-a">Delivery</label>
+
+          <input type="radio" name="radio-choice-a" data-theme="c" id="radio-choice-1-b" value="choice-2"  />
+          <label for="radio-choice-1-b">Pick Up</label>
+          </fieldset>
+      <button data-icon="flat-plus" data-theme="a">ADD TO CART</button>
+    </div>
+    
+      <div class="catalogue-item">
+    <div class="div-auction-img">
+    <img src="img/ps4.jpg" class="img-auction"/>
+    </div><br/><br/>
+    <h3>Catalogue Item</h3>
+    <h4 class="auction-price">210</h4>
+    <p>
+    However, because you can’t be sure of the structure or values of JSON your app receives, it can be challenging to deserialize model objects correctly. This post describes a few approaches you can take when working with JSON in your apps.
+    </p>
+    <fieldset data-role="controlgroup">
+          <input type="radio" name="radio-choice-a" data-theme="c" id="radio-choice-1-a" value="choice-1" checked="checked" />
+          <label for="radio-choice-1-a">Delivery</label>
+
+          <input type="radio" name="radio-choice-a" data-theme="c" id="radio-choice-1-b" value="choice-2"  />
+          <label for="radio-choice-1-b">Pick Up</label>
+          </fieldset>
+      <button data-icon="flat-plus" data-theme="a">ADD TO CART</button>
+    </div>
+    
+        <div class="catalogue-item">
+    <div class="div-auction-img">
+    <img src="img/ps4.jpg" class="img-auction"/>
+    </div><br/><br/>
+    <h3>Catalogue Item</h3>
+    <h4 class="auction-price">210</h4>
+    <p>
+    However, because you can’t be sure of the structure or values of JSON your app receives, it can be challenging to deserialize model objects correctly. This post describes a few approaches you can take when working with JSON in your apps.
+    </p>
+    <fieldset data-role="controlgroup">
+          <input type="radio" name="radio-choice-a" data-theme="c" id="radio-choice-1-a" value="choice-1" checked="checked" />
+          <label for="radio-choice-1-a">Delivery</label>
+
+          <input type="radio" name="radio-choice-a" data-theme="c" id="radio-choice-1-b" value="choice-2"  />
+          <label for="radio-choice-1-b">Pick Up</label>
+          </fieldset>
+      <button data-icon="flat-plus" data-theme="a">ADD TO CART</button>
+    </div>-->
+  </div><div class="catalogue-item" id="showcatalogue2">
+</div>
+  <div id="highlight"> </div>
+  </div>
+
+
+<script>
+
+
+
+
+
+   $(document).ready(function(e) {
+	   
+	   var memid = localStorage.getItem('username');
+			var surveyid= $('#surveyoption').val();
+			
+			
+			$.ajax({
+				type:"POST",
+				url:"https://demo.perxclm2.com/Company_2/api/v1/listcatalogueapi.php",
+				data:{memid:memid},
+				dataType:"json",
+				success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+													
+													
+													
+											var tran = "";
+											var result ="";
+											$.each(msg.Category_category_details, function(key,value)
+                            {
+                             //   if(key != "status"){
+                                
+								tran ='<option value="'+value.Merchandize_category_id+'">'+value.Merchandize_category_name+'</option>'	;
+								//}
+							result = result + tran; 
+							tran ="";	
+							});
+                   //  alert (result);
+                         //alert("Transfer Successful");
+						  $('#catalogueoption').html(result);
+						  					
+			
+						 
+												
+												}
+											}
+			}
+												})
+    
+			
+	   
+	//catalogue ============================================
+
+//$('#showcatalogue').load('blank.html', function() {
+	//$(document).on("pageshow","#catalogue",function(){
+
+var memberid = localStorage.getItem('username').trim();
+var lim = 20;
+var slim = 0
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/catalogueapi.php",
+											data: {memberid:memberid, slim:slim, lim:lim},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+											if (msg.status ==1001){
+												//alert(msg.Total_items_incart);
+												$('#mycartcount').html(msg.Total_items_incart);
+												var tran = "";
+											var result ="";
+												 $.each(msg.Catalogue_details, function(key,value)
+                            {
+                                //if(key != "status" && key != "Current_balance" && key != "Total_Redeem_points_incart" && key != "Total_items_incart"){
+                                
+								tran ='<div class="catalogue-item cart-item"><div class="catalogue-pic cart-item""><img src="'+value.Item_image+'" class="img-auction"/></div><div class="catalogue-item-desc"><h3 class="catalogue-item-name">'+value.Merchandize_item_name+'</h3><h4 class="auction-price">'+value.Billing_price_in_points+'</h4>';
+
+									var t2 ="";
+									if (value.Delivery_method == 1 ) {
+									t2 ='<fieldset data-role="controlgroup"><input type="radio" data-theme="c" class="rd-redeem" value="1" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'"/> Collect in Store</fieldset>';
+									var r1 = '<div id="'+value.Merchandize_item_code+'" class="hidedropdown" style="display: none;"><p class="lbl-location">Select Location:</p><select class="drp-delivery-location" id="'+value.Merchandize_item_code+'">';
+									var t1 ="";
+									$.each(value.Branch_details, function(key1,value1){
+									t1 ='<option value ="'+value1.Branch_code+'">'+value1.Branch_name+'</option> ';
+									r1= r1 + t1;
+									t1 ="";
+									});
+									r1 = r1 + '</select>';
+									t2 = t2 + r1;
+									}
+									
+									else if (value.Delivery_method == 3 ) {
+
+t2 ='<fieldset data-role="controlgroup"><input type="radio" data-theme="c" class="rd-redeem" value="1" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'"/> Collect in Store <br/><input type="radio" data-theme="c" class="rd-redeem" value="2" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'"/> Delivery</fieldset>';
+									var r1 = '<div id="'+value.Merchandize_item_code+'" class="hidedropdown" style="display: none;"> <p class="lbl-location">Select Location:</p><select class="drp-delivery-location" id="'+value.Merchandize_item_code+'">';
+									var t1 ="";
+									$.each(value.Branch_details, function(key1,value1){
+										t1 ='<option value ="'+value1.Branch_code+'">'+value1.Branch_name+'</option>';
+									r1= r1 + t1;
+									t1 ="";
+									});
+									r1 = r1 + '</select></div>';
+									t2 = t2 + r1;
+									}
+									else {
+									t2 ='<fieldset data-role="controlgroup"><input type="radio" data-theme="c" class="rd-redeem" value="2" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'"/> Delivery</fieldset>';	
+									}
+
+								tran = tran + t2;
+								
+							var endbtn = '<br/><br/><button data-icon="flat-plus" data-theme="a" class="form_submit btn-add2cart" id="'+value.Merchandize_item_code+'">Add To Cart</button></div></div>';
+							result = result + tran + endbtn; 
+							tran ="";
+							endbtn ="";	
+								//}
+							});
+							//alert(tran);
+							
+							var button = '<br/> <input type="hidden" id="limit" value ="20"><button data-theme ="a" class ="addmore form_submit" id="20" style ="align:center;"> Load More </button>';
+							$('#showcatalogue').html(result + button);	
+						//var lim = parseInt($('#limit').val());
+						var limb = 20;
+						//limc = lim + limb
+						$('#limit').val(limb);
+						//var lim2 = lim;
+						//alert (limc);
+											}
+											else {
+												alert(msg.status);
+											
+											}
+											}
+											}
+		});
+
+
+
+//===================load more categories button======================================================== 
+
+
+$(document).on('click','#20', function() {
+	$('.addmore').remove();
+var memberid = localStorage.getItem('username').trim();
+var slim = parseInt($('#limit').val());
+//var elim = $('#limit').val());
+var limb = 20;
+var lim = slim + limb;	
+						
+alert (lim);
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/catalogueapi.php",
+											data: {memberid:memberid, slim:slim, lim:lim},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+											if (msg.status ==1001){
+												//alert(msg.Total_items_incart);
+												$('#mycartcount').html(msg.Total_items_incart);
+												var tran = "";
+											var result ="";
+												 $.each(msg.Catalogue_details, function(key,value)
+                            {
+                                //if(key != "status" && key != "Current_balance" && key != "Total_Redeem_points_incart" && key != "Total_items_incart"){
+                                
+								tran ='<div class="catalogue-item cart-item"><div class="catalogue-pic cart-item""><img src="'+value.Item_image+'" class="img-auction"/></div><div class="catalogue-item-desc"><h3 class="catalogue-item-name">'+value.Merchandize_item_name+'</h3><h4 class="auction-price">'+value.Billing_price_in_points+'</h4>';
+
+									var t2 ="";
+									if (value.Delivery_method == 1 ) {
+									t2 ='<fieldset data-role="controlgroup"><input type="radio" data-theme="c" class="rd-redeem" value="1" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'"/> Collect in Store</fieldset>';
+									var r1 = '<div id="'+value.Merchandize_item_code+'" class="hidedropdown" style="display: none;"><p class="lbl-location">Select Location:</p><select class="drp-delivery-location" id="'+value.Merchandize_item_code+'">';
+									var t1 ="";
+									$.each(value.Branch_details, function(key1,value1){
+									t1 ='<option value ="'+value1.Branch_code+'">'+value1.Branch_name+'</option> ';
+									r1= r1 + t1;
+									t1 ="";
+									});
+									r1 = r1 + '</select>';
+									t2 = t2 + r1;
+									}
+									
+									else if (value.Delivery_method == 3 ) {
+
+t2 ='<fieldset data-role="controlgroup"><input type="radio" data-theme="c" class="rd-redeem" value="1" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'"/> Collect in Store <br/><input type="radio" data-theme="c" class="rd-redeem" value="2" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'"/> Delivery</fieldset>';
+									var r1 = '<div id="'+value.Merchandize_item_code+'" class="hidedropdown" style="display: none;"> <p class="lbl-location">Select Location:</p><select class="drp-delivery-location" id="'+value.Merchandize_item_code+'">';
+									var t1 ="";
+									$.each(value.Branch_details, function(key1,value1){
+										t1 ='<option value ="'+value1.Branch_code+'">'+value1.Branch_name+'</option>';
+									r1= r1 + t1;
+									t1 ="";
+									});
+									r1 = r1 + '</select></div>';
+									t2 = t2 + r1;
+									}
+									else {
+									t2 ='<fieldset data-role="controlgroup"><input type="radio" data-theme="c" class="rd-redeem" value="2" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'"/> Delivery</fieldset>';	
+									}
+
+								tran = tran + t2;
+								
+							var endbtn = '<br/><br/><button data-icon="flat-plus" data-theme="a" class="form_submit btn-add2cart" id="'+value.Merchandize_item_code+'">Add To Cart</button></div></div>';
+							result = result + tran + endbtn; 
+							tran ="";
+							endbtn ="";	
+								//}
+							});
+							//alert(tran);
+							
+							var button = '<br/> <input type="hidden" id="limit" value =""><button data-theme ="a" class ="addmore form_submit" id="20" style ="align:center;"> Load More </button>';
+							//$('#showcatalogue').html(result + button);
+							$('#showcatalogue').append(result+button);
+								//$("#itemcontent").append(itemcontent);
+						//var lim = parseInt($('#limit').val(lim));
+						//var limb = 20;
+						
+						$('#limit').val(lim);
+						
+							
+						//var lim = parseInt($('#limit').val());
+						//var limb = 20;
+						//limc = lim + limb
+						//$('#limit').val(lim+limb);		
+											}
+											else {
+												alert(msg.status);
+											
+											}
+											}
+											}
+		});
+	});
+		
+		///===============================================================
+
+
+//});   
+
+//add to cart button ==================
+
+
+	$(document).on('click','.rd-redeem', function() {
+	var deliveryid = $(this).attr('name');
+	
+	if($("#showcatalogue input[type='radio'][name='"+deliveryid+"']:checked") ){
+	if($(this).val() == 1){
+	//alert(deliveryid);
+	
+	$('#' +deliveryid+'.hidedropdown').show();
+	} else {
+		$('#' +deliveryid+'.hidedropdown').hide();
+	}
+	
+	}
+	
+});
+
+$(document).on('click','.btn-add2cart', function() {
+	var cartid = $(this).attr('id');
+	//alert(cartid); 
+	var memberid = localStorage.getItem('username').trim();
+	var redmethod = $("#showcatalogue input[type='radio'][name='"+cartid+"']:checked").val();
+	if (redmethod == 1) {
+		//var code = '#'+cartid+
+		//alert (code);
+	var branch = $('#'+cartid+'.drp-delivery-location').val();
+	alert(branch);
+	} else {
+	var branch ="";
+	}
+	
+	if (redmethod ==null) {
+	alert("Kindly select redemption option");
+	return false;	
+	}
+	else if (redmethod == 1 && branch =="") {
+	alert("Kindly select Branch");
+	}
+	
+	
+	//alert (redmethod);
+	//alert(branch);
+	
+		
+
+	else{
+	if ($('#loading_image').length == 0) {	
+		$('#mycartcount').before('<img src="images/loader.gif" style="display: none;" alt="loading" id="loading_image">');
+		}
+	$('#loading_image').show();     
+    $('#mycartcount').hide();
+	//alert(auctionval);	
+	$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/inseritemcart.php",
+											data: {memberid:memberid, redmethod:redmethod, cartid:cartid, branch:branch},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+												
+												if (msg.status == 1001){
+													$('#mycartcount').html(msg.Total_items_incart);
+													$('#loading_image').hide();     
+    												$('#mycartcount').show();
+													
+												} else {
+												alert(msg.status+ ":Invalid Request ");	
+												$('#loading_image').hide();     
+    												$('#mycartcount').show();
+												}
+											}
+											}
+	});
+	return false;
+	}
+});
+	   
+	   
+	   //use dropdown to sort catalogue items
+	   $(document).on('blur','#catalogueoption', function() {
+	   
+	   var memberid = localStorage.getItem('username').trim();
+	   var CategoryId = $('#catalogueoption').val();
+
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/catalogueapi.php",
+											data: {memberid:memberid, CategoryId:CategoryId},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+											if (msg.status ==1001){
+												//alert(msg.Total_items_incart);
+												$('#mycartcount').html(msg.Total_items_incart);
+												var tran = "";
+											var result ="";
+												 $.each(msg.Catalogue_details, function(key,value)
+                            {
+                                //if(key != "status" && key != "Current_balance" && key != "Total_Redeem_points_incart" && key != "Total_items_incart"){
+                                
+								tran ='<div class="catalogue-item"><div class="catalogue-pic"><img style =" width:200px; align:center;" src="'+value.Item_image+'" class="catalogue-item-pic"/></div><div class="catalogue-item-desc"><h3 class="catalogue-item-name">'+value.Merchandize_item_name+'</h3><h3 class="catalogue-price">'+value.Billing_price_in_points+'</h3><div class="delivery-mode">';
+
+									var t2 ="";
+									if (value.Delivery_method == 1 ) {
+									t2 ='<input type="radio" class="rd-redeem" value="1" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'">Collect in Store</div>';
+									var r1 = '<div id="'+value.Merchandize_item_code+'" class="hidedropdown" style="display: none;"><p class="lbl-location">Select Location:</p><select class="drp-delivery-location" id="'+value.Merchandize_item_code+'">';
+									var t1 ="";
+									$.each(value.Branch_details, function(key1,value1){
+									t1 ='<option value ="'+value1.Branch_code+'">'+value1.Branch_name+'</option> ';
+									r1= r1 + t1;
+									t1 ="";
+									});
+									r1 = r1 + '</select></div>';
+									t2 = t2 + r1;
+									}
+									
+									else if (value.Delivery_method == 3 ) {
+
+t2 ='<input type="radio" class="rd-redeem" value="1" name="'+value.Merchandize_item_code+'" id="'+value.Merchandize_item_code+'">Collect in Store<input type="radio" class="rd-redeem" value="2" name="'+value.Merchandize_item_code+'">Delivery</div>';
+									var r1 = '<div id="'+value.Merchandize_item_code+'" class="hidedropdown" style="display: none;"> <p class="lbl-location">Select Location:</p><select class="drp-delivery-location" id="'+value.Merchandize_item_code+'">';
+									var t1 ="";
+									$.each(value.Branch_details, function(key1,value1){
+										t1 ='<option value ="'+value1.Branch_code+'">'+value1.Branch_name+'</option>';
+									r1= r1 + t1;
+									t1 ="";
+									});
+									r1 = r1 + '</select></div>';
+									t2 = t2 + r1;
+									}
+									else {
+									t2 ='<input type="radio" class="rd-redeem" value="2" name="'+value.Merchandize_item_code+'">Delivery</div>';	
+									}
+
+								tran = tran + t2;
+								
+							var endbtn = '<button data-icon="flat-plus" data-theme="a" name="submit" class="form_submit btn-add2cart"  id="'+value.Merchandize_item_code+'"/>Add To Cart</button></div></div>';
+							result = result + tran + endbtn; 
+							tran ="";
+							endbtn ="";	
+								//}
+							});
+							//alert(tran);
+							$('#showcatalogue').html(result);		
+											}
+											else {
+												alert(msg.status);
+											
+											}
+											}
+											}
+		});
+
+
+});   
+
+	   
+	   
+	   
+	//statement ===============================================================   
+	   $(document).on("pageshow","#statement",function(){
+  alert("pageshow event fired - catalogue is now shown");
+  
+  var memid = localStorage.getItem('username');
+			
+			$.ajax({
+				type:"POST",
+				url:"https://demo.perxclm2.com/Company_2/api/v1/statementapi.php",
+				data:{memid:memid},
+				dataType:"json",
+				success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+													
+													var tran = "";
+											var result ="";
+												 $.each(msg.Result_data, function(key,value){
+                             //   if(key != "status"){
+                                
+								tran ='<table class="table-stripe"><tr><td><b>'+value.Transaction_date+'</b></td><td><b>'+value.Transaction_type_name+'</b></td></tr><tr><td>Description:</td><td><b>'+value.Description+'</b></td></tr><tr><td>Transaction Amount: </td><td><b>'+value.Transaction_amount+'</b></td></tr><tr><td>Bonus Points:</td><td><b>'+value.Bonus_points+'</b></td></tr><tr><td>Points Balance: </td><td><b>'+value.Loyalty_points+'</b></td></tr></table>';
+				//}
+							result = result + tran; 
+							//alert(result);
+							tran ="";	
+							});
+						
+                     
+                       
+						  $('#showstat').html(result);
+						 
+												
+												}
+											}
+			}
+												})
+    
+    
+
+		
+		
+});
+    
+	var memberid= localStorage.getItem('username');
+	
+	
+	
+	
+	
+	$(document).on('click','#reset', function() {
+
+			var memid = localStorage.getItem('username');
+			
+			$.ajax({
+				type:"POST",
+				url:"https://demo.perxclm2.com/Company_2/api/v1/resetcustpin.php",
+				data:{memid:memid},
+				dataType:"json",
+				success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+                     
+                         alert("Pin Reset Successful");
+						 // $('#Company_name').html(msg.Company_name);
+						  //$('#tinfo').html(msg.First_name);
+						 
+												
+												}
+											}
+			}
+												})
+    
+    
+
+		
+		
+	})
+	
+//});
+
+
+
+$(document).on('click','#cpinbtn', function() {
+//alert("23");
+			var memid = localStorage.getItem('username');
+	var cpin = $('#cpin').val();
+	var npin = $('#npin').val();
+	var copin = $('#copin').val();
+	
+	if (npin !== copin){
+		alert("Pin does not Match");
+	}
+	
+	else{
+	$.ajax({
+			type:"POST",
+			url:"https://demo.perxclm2.com/Company_2/api/v1/changecustpin.php",
+			data:{memid:memid, cpin:cpin, npin:npin},
+			dataType:"json",
+			success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+                     							
+												alert("PIN Change Successful");
+
+												}
+											}
+			}
+												})
+    
+    
+	}
+	});
+	
+	
+	
+	
+	// Transfer Points
+	
+	//chk transfer to name ================================================
+	$(document).on('blur','#tmemid', function() {
+	//$('#tmemid').blur(function() {
+		
+   	var memid = localStorage.getItem('username');
+	var tmemid= $('#tmemid').val();
+	alert("done");
+	$.ajax({
+			type:"POST",
+			url:"https://demo.perxclm2.com/Company_2/api/v1/transferapi.php",
+			data:{memid:memid, tmemid:tmemid},
+			dataType:"json",
+			success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+                     
+                         
+						 // $('#Company_name').html(msg.Company_name);
+						  $('#tinfo').html(msg.First_name);
+						  alert (msg.First_name);
+								
+												}
+											}
+			}
+												})
+    
+    
+	
+	});
+	
+	//perform actual transfer ========================================
+	$(document).on('click','#tranbtn', function() {
+
+        	var memid = localStorage.getItem('username');
+			var tmemid= $('#tmemid').val();
+			var amount = $('#amount').val();
+			var pin = $('#pin').val();
+			
+				$.ajax({
+				type:"POST",
+				url:"https://demo.perxclm2.com/Company_2/api/v1/ctransferapi.php",
+				data:{memid:memid, tmemid:tmemid, amount:amount, pin:pin},
+				dataType:"json",
+				success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+                     
+                         alert("Transfer Successful");
+						 // $('#Company_name').html(msg.Company_name);
+						  //$('#tinfo').html(msg.First_name);
+						 
+												
+												}
+											}
+			}
+												})
+    
+    
+
+
+    });
+	
+	
+	//Notification ============================
+	
+	$(document).on('pageshow', '#notification', function(){
+		//alert("pageshow");
+		var memid = localStorage.getItem('username');
+
+	$.ajax({
+			type:"POST",
+			url:"https://demo.perxclm2.com/Company_2/api/v1/fetchallnot.php",
+			data:{memid:memid},
+			dataType:"json",
+			success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+                     
+					// alert("done");
+					 						var tran = "";
+											var result ="";
+												 $.each(msg.Notification_details, function(key,value){
+                             //   if(key != "status"){
+                                
+								tran ='<div data-role="collapsible" data-collapsed-icon="flat-mail" data-expanded-icon="flat-cross" id="'+value.User_notification_id+'" class="not-div"><h3><table><tr><td>'+value.Creation_date+'</td><td>'+value.Transaction_type_name+'</td><td><input type="checkbox"/></td></tr></table></h3><p style="overflow-x: scroll !important;">'+value.Contents+'</p></div>';
+								
+		
+								
+										//}
+							result = result + tran; 
+							//alert(result);
+							tran ="";	
+							});
+						
+							$('#not').html(result);					
+							/*	var acc = document.getElementsByClassName("accordion");
+								var i;
+								
+								for (i = 0; i < acc.length; i++) {
+									acc[i].onclick = function(){
+										this.classList.toggle("active");
+										this.nextElementSibling.classList.toggle("show");
+									}
+								}				*/	
+											
+
+												}
+											}
+			}
+												})
+		
+		});
+	
+	/*$(document).on("pageshow","#not",function(){
+		alert("yo!!");
+		var memid = localStorage.getItem('username');
+
+	$.ajax({
+			type:"POST",
+			url:"fetchallnot.php",
+			data:{memid:memid},
+			dataType:"json",
+			success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+                     
+					 
+					 						var tran = "";
+											var result ="";
+												 $.each(msg.Notification_details, function(key,value)
+                            {
+                             //   if(key != "status"){
+                                
+								tran ='<div id="'+value.User_notification_id+'" class="linenotify"><input value="'+value.User_notification_id+'" type ="checkbox" class ="notificationid"/><button class ="accordion" id="'+value.User_notification_id+'"><i>'+value.Creation_date+'</i><b class="not-topic">'+value.Transaction_type_name+'</b></button><div class="not-panel">'+value.Contents+'</div><br/></div>'	;
+								//}
+							result = result + tran; 
+							tran ="";	
+							});
+							//alert(tran);
+							$('#not').html(result);					
+								var acc = document.getElementsByClassName("accordion");
+								var i;
+								
+								for (i = 0; i < acc.length; i++) {
+									acc[i].onclick = function(){
+										this.classList.toggle("active");
+										this.nextElementSibling.classList.toggle("show");
+									}
+								}					
+											
+
+												}
+											}
+			}
+												})*/
+												
+												
+		$(document).on("pageshow","#survey",function(){
+			alert("survey");
+			var memid = localStorage.getItem('username');
+			var surveyid= $('#surveyoption').val();
+
+			
+			$.ajax({
+				type:"POST",
+				url:"https://demo.perxclm2.com/Company_2/api/v1/fetchsurveyapi.php",
+				data:{memid:memid},
+				dataType:"json",
+				success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+													
+													
+													
+											var tran = "";
+											var result ="";
+											$.each(msg.Survey_details, function(key,value)
+                            {
+                             //   if(key != "status"){
+                                
+								tran ='<option value="'+value.Survey_id+'">'+value.Survey_name+'</option>'	;
+								//}
+							result = result + tran; 
+							tran ="";	
+							});
+                     alert (result);
+                         //alert("Transfer Successful");
+						  $('#surveyoption').html(result);
+						  					
+			
+						 
+												
+												}
+											}
+			}
+												})
+    
+			
+		})
+		
+		//select survey id
+		
+		
+		$(document).on('blur','#surveyoption', function() {
+	//$('#tmemid').blur(function() {
+		
+		//alert("test");
+		
+   	var memid = localStorage.getItem('username');
+	var surveyid = $('#surveyoption').val();
+	//alert(surveyid);
+	$.ajax({
+			type:"POST",
+			url:"https://demo.perxclm2.com/Company_2/api/v1/getsurveyquestapi.php",
+			data:{memid:memid, surveyid:surveyid},
+			dataType:"json",
+			success: function(msg){
+
+				if (msg.success == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												if (msg.status ==1001){
+                     
+                         
+						 
+											var tran = "";
+											var result ='<h2>No of Questions: <div id="quesno">'+msg.Result_count+'</div> Survey id <div id="suid">'+msg.Survey_id+'</div></h2>';
+												 $.each(msg.Question_details, function(key,value)
+                            {
+                                //if(key != "status" && key != "Survey_id" && key != "Result_count"){
+                                
+								tran ='<h3 class="question_name">'+value.Question+'</h3>'	;
+									var r1 = "";
+									var t1 ="";
+									if (value.Response_type == 1 ) {
+									$.each(value.Value_id, function(key1,value1){
+										t1 ='<input type="radio" class="ansid" value="'+key1+'" name="'+value.Question_id+'">'+value1+'';
+									r1= r1 + t1;
+									t1 ="";
+									});
+									
+									}
+									
+									else {
+									r1 = '<textarea class="ansid" name="'+value.Question_id+'"></textarea>';	
+									}
+								tran = tran + r1;
+								//}
+							result = result + tran; 
+							tran ="";	
+							});
+							//alert(tran);
+							var subtn = '<input type="submit" name="submit" id="btnsubmitsu" class="form_submit surveybtn" value="Submit" />';
+							result = result + subtn;
+							$('#showsurvey').html(result);					
+												
+												}
+												else {
+													$("#showsurvey").html(msg.status);
+												}
+												}
+											}
+			//}
+												})
+    
+    
+	
+	});
+	
+    
+	
+	//submit survey ============================================================================
+	
+//$('#showsurvey').on('click','#btnsubmitsu', function() {
+$(document).on('click','#btnsubmitsu', function() {
+	
+var quescount = $("#showsurvey #quesno").html();
+var surveyid = $("#showsurvey #suid").html();
+var memberid = localStorage.getItem('username').trim();
+//alert(quescount);
+var suans = {};
+$("#showsurvey input[type='radio'][class=ansid]:checked").each(function() {
+//selected.push($(this).val());
+suans[$(this).attr('name')] =$(this).val(); 
+});
+
+$("#showsurvey textarea[class=ansid]").each(function() {
+//selected.push($(this).val());
+var blankcheck = $(this).val();
+if (blankcheck != "") {
+suans[$(this).attr('name')] =$(this).val(); 
+}
+});
+
+alert(JSON.stringify(suans));
+surveyresponse = JSON.stringify(suans);
+
+objlenght = Object.keys(suans).length;
+//alert(Object.keys(suans).length);	
+
+$.ajax({
+			type:"POST",
+			url:"https://demo.perxclm2.com/Company_2/api/v1/submitsurveyapi.php",
+			data:{memberid:memberid, surveyresponse:surveyresponse, surveyid:surveyid},
+			dataType:"json",
+			success: function(msg){
+				
+				if (msg == false) {
+											alert("There was an error submitting the form. Please try again.");
+											} else {
+												//alert("focus out one");
+												if (msg.status ==1001){
+													alert("Survey Submitted sucessfully");
+												} 
+												else if (msg.status ==2021) {
+													alert("Kindly answer all the questions");	
+												}
+												
+												else {
+													alert(msg.status);
+													
+												}
+												
+											}
+			}
+			})
+			
+});
+
+
+	//$('#showauction').load('blank.html', function() {
+	$(document).on("pageshow","#auction",function(){
+        var memberid = localStorage.getItem('username').trim();
+//alert("loading");
+		$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/fetchauction.php",
+											data: {memberid:memberid},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+												if (msg.status ==1001){
+												//	alert("load");
+			
+			
+			
+			var Highest_bid_text = "";
+			var result ="";
+			var tran =""
+                            $.each(msg.Auction_details, function(key,value)
+                            {
+                                //if(key != "status")
+                               // {
+                                    if(value.Highest_bid_flag == 1)
+                                    {
+                                        Highest_bid_text = "You Currently the Highest Bidder";
+                                    }
+                                    if(value.Highest_bid_flag == 2)
+                                    {
+                                        Highest_bid_text = "You are no longer the Highest Bidder. Bid again.";
+                                    }
+                                    
+                                    if(value.Highest_bid_flag == 0)
+                                    {
+                                        Highest_bid_text = "Not Bidded for Auction. Bid now to become first bidder.";
+                                    }
+                                    
+                                    tran='<div class="auction-item"><div class="div-auction-img"><img src="'+value.Prize_image+'" class="img-auction"/></div><h3>'+value.Auction_name+'</h3><h4 class="auction-price">End Date:'+value.End_date +' '+ value.End_time +'  </h4><h4 class="winner-note">'+Highest_bid_text+'</h4><p>Minimum Amount To Bid <h3 id="'+value.Auction_id+'" class="minbid">'+ (+value.Min_bid_value + +value.Min_increment) +'</h3></p><input type="text" id="'+value.Auction_id+'" class="form_input"/><br/><button button data-icon="flat-plus" data-theme="a" class="form_submit bidbtn" id="'+value.Auction_id+'"> BID</button></div></div></div>';
+							result = result + tran; 
+							tran ="";	
+                                //}										
+							});
+							$('#showauction').html(result);
+		
+												}
+												
+												else if(msg.status ==2001){
+													alert("Unabele to locate company");
+												}
+												else if(msg.status ==2002){
+													alert("Invalid acces credentials");
+												}
+												else if(msg.status ==2003){
+													alert("Unable to locate account");
+												}
+												else if(msg.status ==2004){
+													alert("Account Disabled");
+												}
+												else if(msg.status ==2006){
+													alert("No id passed");
+												}
+												else if(msg.status ==2012){
+													alert("No auction Found");
+												}
+												
+												else {
+												alert(msg.status);
+																								}													
+											}
+															
+											}
+										});
+		
+		//return false;
+    });
+	
+	
+	
+	
+	//bid button ============================================
+	
+	$(document).on('click','.bidbtn', function() {
+	//$('#showauction').on('click','.bidbtn', function() {
+	var auctionid = $(this).attr('id');
+	var memberid = localStorage.getItem('username').trim();
+	var minbid = parseInt($('#' + auctionid+'.minbid').html());
+	var auctionval = $('#' + auctionid+'.form_input').val();
+		
+	if (auctionval =="") {
+	alert("Kindly enter amount to bid");
+	return false;	
+	}
+	else if (!$.isNumeric(auctionval)){
+	alert("Kindly enter a numberic value to bid");
+	return false;	
+	}
+	else if (auctionval < minbid) {
+		alert("Kindly enter a value greater or equal to the Minimum Bid")
+	return false;
+	}
+
+	else{
+	//alert(auctionval);	
+	$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/auctionbidapi.php",
+											data: {memberid:memberid, auctionval:auctionval, auctionid:auctionid},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+												
+												if (msg.status == 1001){
+													alert("bid sucessfully placed");
+							//Beginning load auction						
+											$.ajax({
+											type: "POST",
+											url: "fetchauction.php",
+											data: {memberid:memberid},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+												if (msg.status ==1001){
+													//alert("load");
+			
+			
+			
+			var Highest_bid_text = "";
+			var tran="";
+			var result="";
+                            $.each(msg.Auction_details, function(key,value)
+                            {
+                               // if(key != "status")
+                                //{
+                                    if(value.Highest_bid_flag == 1)
+                                    {
+                                        Highest_bid_text = "You Currently the Highest Bidder";
+                                    }
+                                    if(value.Highest_bid_flag == 2)
+                                    {
+                                        Highest_bid_text = "You are no longer the Highest Bidder. Bid again.";
+                                    }
+                                    
+                                    if(value.Highest_bid_flag == 0)
+                                    {
+                                        Highest_bid_text = "Not Bidded for Auction. Bid now to become first bidder.";
+                                    }
+                                    
+                                    tran='<div class="auction-item"><div class="div-auction-img"><img src="'+value.Prize_image+'" class="img-auction"/></div><h3>'+value.Auction_name+'</h3><h4 class="auction-price">End Date:'+value.End_date +' '+ value.End_time +'  </h4><h4 class="winner-note">'+Highest_bid_text+'</h4><p>Minimum Amount To Bid <h3 id="'+value.Auction_id+'" class="minbid">'+ (+value.Min_bid_value + +value.Min_increment) +'</h3></p><input type="text" id="'+value.Auction_id+'" class="form_input"/><br/><button button data-icon="flat-plus" data-theme="a" class="form_submit bidbtn" id="'+value.Auction_id+'"> BID</button></div></div></div>';
+							result = result + tran; 
+							tran ="";	
+                             //   }										
+							});
+							$('#showauction').html(result);
+		
+												}
+												
+												else if(msg.status ==2001){
+													alert("Unabele to locate company");
+												}
+												else if(msg.status ==2002){
+													alert("Invalid acces credentials");
+												}
+												else if(msg.status ==2003){
+													alert("Unable to locate account");
+												}
+												else if(msg.status ==2004){
+													alert("Account Disabled");
+												}
+												else if(msg.status ==2006){
+													alert("No id passed");
+												}
+												else if(msg.status ==2012){
+													alert("No auction Found");
+												}
+												
+												else {
+												alert(msg.status);
+																								}													
+											}
+															
+											}
+										});
+		
+//end of load auction again													
+													
+													
+													
+												}
+												else if(msg.status ==2015){
+													alert("Unabele to identify auction");
+												}
+												else if(msg.status ==2012){
+													alert("Auction Not found");
+												}
+													else if(msg.status ==2013){
+													alert("Bid value should be greater than minimum amount to build");
+												}
+													else if(msg.status ==2014){
+													alert("Insuffecient Balance to lace bid");
+												}
+													else {
+														alert(msg.status);
+													}
+											}
+											}
+											});
+	}
+return false
+});
+
+
+//cart page 
+
+//$('#showcheckout').load('blank.html', function() {
+$(document).on("pageshow","#cart",function(){
+//);
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/fetchcountryapi.php",
+											data: {},
+											dataType:"json",
+											
+											success: function(msg1){
+												if (msg1.status ==1001){
+														var tran1 = "";
+														var result1 ='<option value="">Select Country</option>';
+												 $.each(msg1.Country_details, function(key1,value1)
+                            {
+								//if(key1 != "status") {
+								tran1 = '<option value="'+value1.Country_id+'">'+value1.Country_name+'</option>';	
+								//}
+								result1 = result1 + tran1;
+								tran1 ="";
+							});
+							$('#showcountry').html(result1);
+												}
+											}
+})
+var memberid = localStorage.getItem('username').trim();
+alert("test");
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/showcheckoutapi.php",
+											data: {memberid:memberid},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+											if (msg.status ==1001){
+												//alert(msg.Total_items_incart);
+												//$('#mycartcount').html(msg.Total_items_incart);
+												var tran = "";
+											var result ="";
+												 $.each(msg.Cart_details, function(key,value)
+                            {
+							//if(key != "status" && key != "Total_points" && key != "Total_shipping_points" && key != "Grand_Total_Points" && key != "Cart_quantity" && key != "Current_address" && key != "Country_name" && key != "State_name" && key != "City_name" && key != "City_id" && key != "State_id" && key != "Country_id" && key != "Merchandize_item_array" && key != "Remark_item_count" && key != "Delivery_item_count")
+                              //  {
+								
+								tran = '<div id="cartitem" data-code="'+value.Company_merchandize_item_code+'" data-redeem="'+value.Delivery_Method+'" data-branch="'+value.Branch+'">  <table class="cart-item"><tr style="width:100% !important;"><td style="width:45% !important;"><img src="'+value.Item_image+'" style="width:100% !important;"/></td><td style="width:25% !important;"><h3>'+value.Merchandize_item_name+'</h3><div class="cart-item-info"><i>Shipping: <i class="shippoints" data-code="'+value.Company_merchandize_item_code+'" data-redeem="'+value.Delivery_Method+'" data-branch="'+value.Branch+'">'+value.Shipping_points+'</i></div><div class="div-change"><input type="number" placeholder="QTY" class="txtquantity" data-code="'+value.Company_merchandize_item_code+'" data-redeem="'+value.Delivery_Method+'" data-branch="'+value.Branch+'" value="'+value.Quantity+'" style="width:50% !important;"/><i class="btnchangeqty" data-code="'+value.Company_merchandize_item_code+'" data-redeem="'+value.Delivery_Method+'" data-branch="'+value.Branch+'">Change</i></div>';
+	 var t1 = "";
+							 if(value.Enable_remark == 1){
+								t1='<div><input type="text" class="remarkfield" data-code="'+value.Company_merchandize_item_code+'" data-redeem="'+value.Delivery_Method+'" data-branch="'+value.Branch+'" placeholder="'+value.Remark_label+'" value="'+value.Remark+'"/><i class="btnaddremark" data-code="'+value.Company_merchandize_item_code+'" data-redeem="'+value.Delivery_Method+'" data-branch="'+value.Branch+'">Update</i></div>'; 
+							 }
+							 var tran2 = "";
+tran2='</td><td style="width:10% !important;"><h4 class="auction-price">'+value.Total_Redeemable_points+'</h4></td><td style="width:10% !important;"><a class="cart-remove" data-code="'+value.Company_merchandize_item_code+'"data-redeem="'+value.Delivery_Method+'" data-branch="'+value.Branch+'">&times;</a></td></tr></table>';
+							
+							 tran = tran + t1 + tran2;
+							 t1="";
+							
+							result = result + tran; 
+							tran ="";
+							//	}
+							
+							});
+							$('#cartitem').html(result);
+							$('#price').html(msg.Status_array.Total_points);
+							$('#shipping').html(msg.Status_array.Total_shipping_points);
+							$('#grandtotal').html(msg.Status_array.Grand_Total_Points);
+							$('#useraddress').html(msg.Status_array.Current_address);
+							$('#sameaddress').attr('data-address',msg.Status_array.Current_address);
+							$('#sameaddress').attr('data-country',msg.Status_array.Country_id);
+							$('#sameaddress').attr('data-state',msg.Status_array.State_id);
+							$('#sameaddress').attr('data-city',msg.Status_array.City_id);
+											}
+											else {
+											alert(msg.status);	
+											}
+											}
+											}
+});
+});
+								
+								
+//$('#showcheckout').on('click','.cart-item-delete', function() {
+$(document).on("click",".cart-item-delete",function(){
+var itemcode = $(this).attr('data-code');
+var redmethod = $(this).attr('data-redeem');
+var branch = $(this).attr('data-branch');
+var memberid = localStorage.getItem('username').trim();
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/removecheckoutapi.php",
+											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+											if (msg.status ==1001){
+												alert("removed");
+												$("#cartitem [class=cart-item][data-code='"+itemcode+"'][data-redeem='"+redmethod+"'][data-branch='"+branch+"']").remove();
+												$('#price').html(msg.Total_points);
+												$('#shipping').html(msg.Total_shipping_points);
+												$('#grandtotal').html(msg.Grand_Total_Points);
+											}
+											else {
+												alert(msg.status +' An error has occured');
+											}
+											}
+											
+											}
+});
+});
+
+//$('#showcheckout').on('click','.btnchangeqty', function() {
+	$(document).on('click','.btnchangeqty', function() {
+var itemcode = $(this).attr('data-code');
+var redmethod = $(this).attr('data-redeem');
+var branch = $(this).attr('data-branch');
+var quantity = $("#cartitem [class=txtquantity][data-code='"+itemcode+"'][data-redeem='"+redmethod+"'][data-branch='"+branch+"']").val();
+var memberid = localStorage.getItem('username').trim();
+alert(quantity);
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/changeqtyapi.php",
+											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch,quantity:quantity},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+											if (msg.status ==1001){
+												alert("changed");
+									
+												$('#price').html(msg.Total_points);
+												$('#shipping').html(msg.Total_shipping_points);
+												$('#grandtotal').html(msg.Grand_Total_Points);
+											}
+											else {
+												alert(msg.status +' An error has occured');
+											}
+											}
+											
+											}
+});
+});
+
+//$('#showcheckout').on('click','.btnaddremark', function() {
+	$(document).on('click','.btnaddremark', function() {
+var itemcode = $(this).attr('data-code');
+var redmethod = $(this).attr('data-redeem');
+var branch = $(this).attr('data-branch');
+var remark = $("#cartitem [class=remarkfield][data-code='"+itemcode+"'][data-redeem='"+redmethod+"'][data-branch='"+branch+"']").val();
+var memberid = localStorage.getItem('username').trim();
+alert(remark);
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/addremarkapi.php",
+											data: {memberid:memberid,itemcode:itemcode, redmethod:redmethod, branch:branch,remark:remark},
+											dataType:"json",
+											
+											success: function(msg){
+											if (msg == false) {
+											$("#warn").html("There was an error submitting the form. Please try again.");
+													
+											} else {
+											if (msg.status ==1001){
+												alert("updated");
+									$("#cartitem [class=remarkfield][data-code='"+itemcode+"'][data-redeem='"+redmethod+"'][data-branch='"+branch+"']").val(msg.Remark);
+												
+											}
+											else {
+												alert(msg.status +' An error has occured');
+											}
+											}
+											
+											}
+});
+});
+
+//$('#showcountry').change (function() {
+$(document).on('blur','#showcountry', function() {
+var countryid = $('#showcountry').val();
+//alert(countryid);
+if (countryid == ""){
+	
+	$('#showstate').html('<option value="">Select State</option>');
+	$('#showcity').html('<option value="">Select City</option>');
+}
+else {
+
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/fetchstateapi.php",
+											data: {countryid:countryid},
+											dataType:"json",
+											
+											success: function(msg1){
+												if (msg1.status ==1001){
+														var tran1 = "";
+														var result1 ='<option value="">Select State</option>';
+												 $.each(msg1.State_details, function(key1,value1)
+                            {
+								//if(key1 != "status") {
+								tran1 = '<option value="'+value1.State_id+'">'+value1.State_name+'</option>';	
+								//}
+								result1 = result1 + tran1;
+								tran1 ="";
+							});
+							$('#showstate').html(result1);
+												}
+											}
+});
+
+	
+}
+
+});
+
+
+$(document).on('blur','#showstate', function() {
+var stateid = $('#showstate').val();
+//alert(countryid);
+if (stateid == ""){
+	
+	//$('#showstate').html('<option value="">Select State</option>');
+	$('#showcity').html('<option value="">Select City</option>');
+}
+else {
+
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/fetchcityapi.php",
+											data: {stateid:stateid},
+											dataType:"json",
+											
+											success: function(msg1){
+												if (msg1.status ==1001){
+														var tran1 = "";
+														var result1 ='<option value="">Select City</option>';
+												 $.each(msg1.City_details, function(key1,value1)
+                            {
+								//if(key1 != "status") {
+								tran1 = '<option value="'+value1.City_id+'">'+value1.City_name+'</option>';	
+								//}
+								result1 = result1 + tran1;
+								tran1 ="";
+							});
+							$('#showcity').html(result1);
+												}
+											}
+});
+
+	
+}
+
+});
+
+//$('#showcity.drp-city').change (function() {
+$(document).on('blur','#showcity', function() {
+var cityid = $('#showcity').val();
+//alert(countryid);
+if (cityid != ""){
+
+var stateid = $('#showstate').val();
+var countryid = $('#showcountry').val();
+var memberid = localStorage.getItem('username').trim();
+alert(stateid);
+alert(countryid);
+
+$.ajax({
+											type: "POST",
+											url: "calshippingapi.php",
+											data: {stateid:stateid, countryid:countryid, memberid:memberid},
+											dataType:"json",
+											
+											success: function(msg){
+												if (msg.status ==1001){
+													
+												$('#price').val(msg.Total_points);
+												$('#shipping').val(msg.Total_shipping_points);
+												$('#grandtotal').val(msg.Grand_Total_Points);	
+												 $.each(msg.Shipping_details, function(key,value)
+                            {
+										$("#showcheckout [class=shippoints][data-code='"+value.Item_code+"'][data-redeem='"+value.Delivery_method+"']").html(value.shipping_points);
+										
+										
+							});
+							alert(JSON.stringify(msg.Shipping_details));
+												
+							
+												}
+											}
+});
+
+	
+}
+
+});
+
+//$('#submitcheckout').click(function(){
+	$(document).on('click','#submitcheckout', function() {
+	
+var memberid = localStorage.getItem('username').trim();	
+var address= $('#address').val();
+var countryid= $('#showcountry').val();
+var stateid= $('#showstate').val();
+var cityid= $('#showcity').val();
+//var mempin=	$('#mempin').val();
+//alert(address);
+//alert(countryid);
+//alert(stateid);
+//alert(cityid);
+if (address =="") {
+	
+	alert("Enter Shipping address");
+} else if (countryid ==""){
+	alert("Select Shipping Country");
+	
+} else if (stateid == "") {
+	alert("Select Shipping State");
+} else if (cityid =="") {
+	alert("Select Shipping City");	
+}
+
+else {
+
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/submitcheckoutapi.php",
+											data: {stateid:stateid, countryid:countryid, memberid:memberid,cityid:cityid,address:address, mempin:mempin},
+											dataType:"json",
+											
+											success: function(msg){
+												if (msg.status ==1001){
+												alert("Order Sucessful\nCurrent Balance: "+msg.Current_balance+"\nShipping Address:"+msg.Shipping_Address);
+												$('#currentbal').html(msg.Current_balance);
+												}
+												else if (msg.status ==2025) {
+												alert("Invalid Pin");	
+												}
+											}
+});
+}
+
+});
+
+
+$('#sameaddress.chksameaddress').click (function() {
+	
+if ($('#sameaddress.chksameaddress').is(':checked')) {
+//alert("checked");
+var stateid = $('#sameaddress').attr('data-state');
+var countryid = $('#sameaddress').attr('data-country');
+var cityid = $('#sameaddress').attr('data-city');
+var address = $('#sameaddress').attr('data-address');
+var memberid = localStorage.getItem('username').trim();
+alert(stateid);
+alert(countryid);
+
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/calshippingapi.php",
+											data: {stateid:stateid, countryid:countryid, memberid:memberid},
+											dataType:"json",
+											
+											success: function(msg){
+												if (msg.status ==1001){
+													
+												$('#totalpoints').val(msg.Total_points);
+												$('#totalshippingpoints').val(msg.Total_shipping_points);
+												$('#grandtotalpoints').val(msg.Grand_Total_Points);	
+												 $.each(msg.Shipping_details, function(key,value)
+                            {
+										$("#showcheckout [class=shippoints][data-code='"+value.Item_code+"'][data-redeem='"+value.Delivery_method+"']").html(value.shipping_points);
+										
+										
+							});
+
+												}//1001 calc shipping
+																							}
+});
+
+													$('#address').val(address);
+							$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/fetchcountryapi.php",
+											data: {},
+											dataType:"json",
+											
+											success: function(msg1){
+												if (msg1.status ==1001){
+														var tran1 = "";
+														var result1 ='<option value="">Select Country</option>';
+												 $.each(msg1.Country_details, function(key1,value1)
+                            {
+								//if(key1 != "status") {
+								tran1 = '<option value="'+value1.Country_id+'">'+value1.Country_name+'</option>';	
+								//}
+								result1 = result1 + tran1;
+								tran1 ="";
+							});
+							$('#showcountry').html(result1);
+							$('#showcountry').val(countryid);
+												}
+											}
+})
+
+
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/fetchstateapi.php",
+											data: {countryid:countryid},
+											dataType:"json",
+											
+											success: function(msg1){
+												if (msg1.status ==1001){
+														var tran1 = "";
+														var result1 ='<option value="">Select State</option>';
+												 $.each(msg1.State_details, function(key1,value1)
+                            {
+								//if(key1 != "status") {
+								tran1 = '<option value="'+value1.State_id+'">'+value1.State_name+'</option>';	
+								//}
+								result1 = result1 + tran1;
+								tran1 ="";
+							});
+							$('#showstate').html(result1);
+							$('#showstate').val(stateid);
+												}
+											}
+});
+
+
+$.ajax({
+											type: "POST",
+											url: "https://demo.perxclm2.com/Company_2/api/v1/fetchcityapi.php",
+											data: {stateid:stateid},
+											dataType:"json",
+											
+											success: function(msg1){
+												if (msg1.status ==1001){
+														var tran1 = "";
+														var result1 ='<option value="">Select City</option>';
+												 $.each(msg1.City_details, function(key1,value1)
+                            {
+								//if(key1 != "status") {
+								tran1 = '<option value="'+value1.City_id+'">'+value1.City_name+'</option>';	
+								//}
+								result1 = result1 + tran1;
+								tran1 ="";
+							});
+							$('#showcity').html(result1);
+							$('#showcity').val(cityid);
+												}
+											}
+});					
+											
+											
+											
+
+
+}else {
+//alert("unchecked");	
+}
+});
+
+
+	
+});
+
+
+</script>
+</body>
+</html>
